@@ -1,7 +1,12 @@
-// import build-in http module 
+//1 import build-in http module 
 const http = require('http');
+//4 import fs module from node.js
+const fs = require('fs');
 
-// create server & 
+
+
+
+//2 create server & 
 // accept req and response back to that request
 const server = http.createServer((req,res)=>{
     if(req){
@@ -11,14 +16,27 @@ const server = http.createServer((req,res)=>{
         // ... => 'text/plain', 'text/js', ...
         res.setHeader('Content-Type', 'text/html')
 
-        res.write('<h1>Hello</h1>')
-        // response end
-        res.end()
+        //5 read file with fs module
+        fs.readFile('./views/index.html', (err, data) => {
+            if (err) {
+                console.log(err)
+
+                // response end
+                res.end()
+            }
+            else {
+                res.write(data);
+
+                // response end
+                res.end()
+            }
+        })
+
     }
 
 })
 
-// after created server => listen 
+//3 after created server => listen 
 server.listen(3000, 'localhost', ()=>{
     console.log('Server Listening')
 })
