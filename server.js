@@ -9,6 +9,22 @@ const fs = require('fs');
 //2 create server & 
 // accept req and response back to that request
 const server = http.createServer((req,res)=>{
+    let filename;
+    switch (req.url) {
+        case '/':
+            filename = "home.html";
+            break;
+        case '/contact':
+            filename = "contact.html";
+            break;
+        case '/about':
+            filename = "about.html";
+            break;
+        default:
+            filename = "404.html";
+            break;
+    }
+
     if(req){
         // which should response back to display
         // html, js, text, ... files
@@ -17,7 +33,7 @@ const server = http.createServer((req,res)=>{
         res.setHeader('Content-Type', 'text/html')
 
         //5 read file with fs module
-        fs.readFile('./views/index.html', (err, data) => {
+        fs.readFile('./views/'+filename, (err, data) => {
             if (err) {
                 console.log(err)
 
