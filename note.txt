@@ -17,4 +17,9 @@ npm init -y, npm i lodash, npm install for extra developer]
 
 Express 101
 14. Express routing basics
-15.
+15. Express redirection
+
+
+***
+16. Ejs view engine
+17. Ejs pass data to ejs file *** foreach, if, else
