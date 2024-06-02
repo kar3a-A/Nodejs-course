@@ -5,8 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
+
 <body>
     <h1>This is home page</h1>
+    <% if (blog.length) { %>
+        <% blog.forEach(blog => { %>
+            <h1><%= blog.name %></h1>
+            <h1><%= blog.age %></h1>
+        <% }) %>
+    <% } else { %>
+        <h3>No blog found</h3>
+    <% } %>
     <nav>
         <a href="/">home</a>
         <a href="/about">about</a>

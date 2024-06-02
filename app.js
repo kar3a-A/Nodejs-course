@@ -9,9 +9,15 @@ app.set('views','./views')
 app.set('view engine', 'ejs')
 
 app.get('/',(req,res)=>{
+    const blog = [
+        // {name: 'kkh',age:13},
+        // {name:'mmk',age:12}
+        ]
     if(req){
         // use ejs render
-        res.render('home')
+        res.render('home',
+        {blog}
+        )
     }
 })
 app.get('/about', (req, res) => {
