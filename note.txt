@@ -1,0 +1,25 @@
+1. NOde-101
+2. Node Installation
+3. Global-Object
+4. Node Module System
+
+***
+5. File-system (fs- Module)
+6. Stream and buffer-101
+7. Node-Http-Server
+8. Render-html-file- to client Server
+9. Basic routing
+10. Http-Status-Codes
+11. Redirect uri
+12. Npm Global package Installation
+[13. Npm install specific package and info: node modules & package .json,
+npm init -y, npm i lodash, npm install for extra developer]
+
+Express 101
+14. Express routing basics
+15. Express redirection
+
+
+***
+16. Ejs view engine
+17. Ejs pass data to ejs file *** foreach, if, else
