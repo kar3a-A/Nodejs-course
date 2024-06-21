@@ -10,8 +10,8 @@ app.set('view engine', 'ejs')
 
 app.get('/',(req,res)=>{
     const blog = [
-        // {name: 'kkh',age:13},
-        // {name:'mmk',age:12}
+        {name: 'kkh',age:13},
+        {name:'mmk',age:12}
         ]
     if(req){
         // use ejs render
