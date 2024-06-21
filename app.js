@@ -16,25 +16,36 @@ app.get('/',(req,res)=>{
     if(req){
         // use ejs render
         res.render('home',
-        {blog}
+        {blog,
+        title:'Home Page'
+        }
         )
     }
 })
 app.get('/about', (req, res) => {
     if (req) {
-        res.render('about')
+        res.render('about',
+            {
+                title: 'About Page'}
+        )
     }
 })
 
 app.get('/contact', (req, res) => {
     if (req) {
-        res.render('contact')
+        res.render('contact',
+            {
+                title: 'Contact Page'
+            }
+        )
     }
 })
 // app use for 404 page ***
 app.use((req,res)=>{
     if(req){
-        res.status(404).render('404');
+        res.status(404).render('404',
+            {title:'404 Page'}
+        );
     }
 })
 // app.listen for listen server
