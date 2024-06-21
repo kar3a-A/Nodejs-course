@@ -8,6 +8,7 @@
 
 
 <body>
+    <%- include('components/navbar.ejs') %>
     <h1>This is home page</h1>
     <% if (blog.length) { %>
         <% blog.forEach(blog => { %>
@@ -17,10 +18,8 @@
     <% } else { %>
         <h3>No blog found</h3>
     <% } %>
-    <nav>
-        <a href="/">home</a>
-        <a href="/about">about</a>
-        <a href="/contact">contact</a>
-    </nav>
+    
+
+
 </body>
 </html>
