@@ -1,6 +1,6 @@
 const { render } = require('ejs');
 const express = require('express');
-
+let morgan = require('morgan');
 
 const app = express();
 // using ejs with app.set (...)
@@ -8,13 +8,9 @@ app.set('views','./views')
 // recall ejs engine
 app.set('view engine', 'ejs')
 
-app.use((req,res,next)=>{
-    if(req){
-        console.log('We are using middleware')
-        next();
-    }
-
-})
+// package use 'morgan'
+// show status code 
+app.use(morgan('dev'))
 
 app.get('/',(req,res)=>{
     const blog = [
