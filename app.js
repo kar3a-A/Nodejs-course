@@ -3,6 +3,10 @@ const express = require('express');
 let morgan = require('morgan');
 
 const app = express();
+
+// db url
+let mongoUrl = "mongodb+srv://kar3a:test1234@cluster0.zrz245h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 // using ejs with app.set (...)
 app.set('views','./views')
 // recall ejs engine
