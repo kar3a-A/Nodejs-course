@@ -5,17 +5,20 @@
 
 <body>
     <%- include('components/navbar.ejs') %>
-    <h1>This is home page</h1>
-    <% if (blog.length) { %>
-        <% blog.forEach(blog => { %>
-            <h1><%= blog.name %></h1>
-            <h1><%= blog.age %></h1>
-        <% }) %>
-    <% } else { %>
-        <h3>No blog found</h3>
-    <% } %>
+    <div class="container">
+        <h3>This is home page</h3>
+
+        <div class="blog-card">
+            <% if (blog.length) { %>
+                <% blog.forEach(blog => { %>
+                    <h1>Name: <%= blog.name %></h1>
+                    <h1>Age: <%= blog.age %></h1>
+                <% }) %>
+            <% } else { %>
+                <h3>No blog found</h3>
+            <% } %>
+        </div>
+    </div>
     
-
-
 </body>
 </html>

@@ -40,6 +40,20 @@ app.get('/contact', (req, res) => {
         )
     }
 })
+app.get('/cart', (req, res) => {
+    const items = [
+        {product:"Asus Zenbook 14 oled", price:1400},
+        {product:"Asus Zenbook 13 oled", price:1200}
+    ]
+    if (req) {
+        res.render('cart',
+            {
+                items,
+                title: 'Cart'
+            }
+        )
+    }
+})
 // app use for 404 page ***
 app.use((req,res)=>{
     if(req){
