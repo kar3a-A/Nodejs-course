@@ -11,6 +11,8 @@ app.set('view engine', 'ejs')
 // package use 'morgan'
 // show status code 
 app.use(morgan('dev'))
+// static file
+app.use(express.static('public'))
 
 app.get('/',(req,res)=>{
     const blog = [
