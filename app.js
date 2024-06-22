@@ -22,6 +22,21 @@ app.get('/',(req,res)=>{
         )
     }
 })
+app.get('/cart',(req,res)=>{
+    const cart =[
+        {product: 'Asus Zenbook 14 oled', price:1400},
+        {product: 'Asus zenbook 13 oled', price: 1300}
+    ]
+    if(req){
+        res.render('cart',
+            {
+                cart,
+                title: 'Cart'
+            }
+        )
+    }
+})
+
 app.get('/about', (req, res) => {
     if (req) {
         res.render('about',

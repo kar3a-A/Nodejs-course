@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('components/head.ejs')  %> 
+<body>
+    <%- include('components/navbar.ejs')  %> 
+    <h1>Cart Page</h1>
+    <% if (cart.length) { %>
+        <% cart.forEach(item => { %>
+            <h3>Product Name: <%= item.product %> | Product Price: <%= item.price %>  </h3>
+
+        <% }) %>
+    <% } else { %>
+        <h5>Products are out of stock</h5>
+    <% } %> 
+</body>
+</html>
