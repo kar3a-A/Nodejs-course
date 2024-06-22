@@ -1,69 +1,68 @@
-//1 import build-in http module 
-const http = require('http');
-//4 import fs module from node.js
-const fs = require('fs');
+const {render} = require('ejs');
+const express = require('express')
 
 
+// Initiate express
+const app = express()
+// Initiate ejs
+app.set('view engine', 'ejs')
+app.set('views', './views')
 
-
-//2 create server & 
-// accept req and response back to that request
-const server = http.createServer((req,res)=>{
-    let filename;
-    switch (req.url) {
-        case '/':
-            console.log("Home page is requesting!")
-            filename = "home.html";
-            res.statusCode = 200;
-            break;
-        case '/contact':
-            filename = "contact.html";
-            res.statusCode = 200;
-            break;
-        case '/contact-us':
-            // redirect status code
-            res.statusCode = 301;
-            // redirect with setHeader('Location',...)
-            res.setHeader('Location','/contact')
-            break;
-        case '/about':
-            filename = "about.html";
-            res.statusCode = 200;
-            break;
-        default:
-            filename = "404.html";
-            res.statusCode = 404;
-            break;
-    }
-
+app.get('/', (req,res)=>{
+    const blog = [
+        {name: 'naruto',age:12},
+        {name: 'sakura', age:11}
+    ]
     if(req){
-        // which should response back to display
-        // html, js, text, ... files
-        // setHeader ('Content-Type', ...) 
-        // ... => 'text/plain', 'text/js', ...
-        res.setHeader('Content-Type', 'text/html')
-
-        //5 read file with fs module
-        fs.readFile('./views/'+filename, (err, data) => {
-            if (err) {
-                console.log(err)
-
-                // response end
-                res.end()
+        res.render('home',
+            {
+                blog,
+                title: 'Home'
             }
-            else {
-                res.write(data);
-
-                // response end
-                res.end()
-            }
-        })
-
+        )
     }
-
+})
+app.get('/about', (req,res)=>{
+    if(req){
+        res.render('about',
+            {
+                title: 'About'
+            }
+        )
+    }
+})
+app.get('/about-us', (req,res)=>{
+    if(req){
+        res.status(301)
+        res.render('about',
+            {
+                title: 'Contact'
+            }
+        )
+    }
 })
 
-//3 after created server => listen 
-server.listen(3000, 'localhost', ()=>{
-    console.log('Server Listening')
+app.get('/contact', (req,res)=>{
+    if(req){
+        res.render('contact',
+            {
+                title: 'Contact'
+            }
+        )
+    }
+})
+
+app.use((req,res)=>{
+    if(req){
+        res.status = 404,
+        res.render('404',
+            {
+                title: '404'
+            }
+        )
+    }
+})
+
+app.listen(3000,()=>{
+    console.log('app is running on port 3000')
 })
