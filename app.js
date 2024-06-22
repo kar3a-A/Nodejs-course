@@ -8,6 +8,14 @@ app.set('views','./views')
 // recall ejs engine
 app.set('view engine', 'ejs')
 
+app.use((req,res,next)=>{
+    if(req){
+        console.log('We are using middleware')
+        next();
+    }
+
+})
+
 app.get('/',(req,res)=>{
     const blog = [
         {name: 'kkh',age:13},
