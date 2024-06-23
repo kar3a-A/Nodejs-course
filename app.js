@@ -1,10 +1,15 @@
 const { render } = require('ejs');
 const express = require('express');
+// package use 'morgan'
 let morgan = require('morgan');
+// import mongoose
 const mongoose = require('mongoose');
+// import Blog model from models/Blogs
 const Blog = require('./models/Blogs');
+// create app
 const app = express();
 
+// app.get('/add-blog', 
 app.get('/add-blog', async (req, res) => {
     if (req) {
         let blog = new Blog({
@@ -20,12 +25,16 @@ app.get('/add-blog', async (req, res) => {
 
 // db url
 let mongoUrl = "mongodb+srv://kar3a:test1234@cluster0.zrz245h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+// connect db
 mongoose.connect(mongoUrl).then(()=>{
     console.log('db connected')
+    // app.listen for listen server
+    // start server
     app.listen(3000,()=>{
         console.log('app is running on port 3000')
     })
 }).catch((err)=>{
+    // if error
     console.log(err)
 })
 
@@ -94,4 +103,4 @@ app.use((req,res)=>{
         );
     }
 })
-// app.listen for listen server
+
