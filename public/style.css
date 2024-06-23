@@ -32,5 +32,8 @@ nav a:hover {
     align-items: center;
     margin: 10px 0;
     background-color: rgba(0, 255, 255, 0.507);
-    border-radius: 25px;
+    border-radius: 10px;
+}
+.blog-card:hover {
+    background-color: rgba(0, 255, 204, 0.384);
 }

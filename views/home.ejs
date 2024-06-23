@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('components/head.ejs') %>
-
+<%- include('components/head.ejs') %> 
 
 <body>
     <%- include('components/navbar.ejs') %>
     <div class="container">
-        <h3>This is home page</h3>
+        <h3>Home Page</h3>
 
-        <div class="blog-card">
-            <% if (blog.length) { %>
-                <% blog.forEach(blog => { %>
-                    <h1>Name: <%= blog.name %></h1>
-                    <h1>Age: <%= blog.age %></h1>
-                <% }) %>
-            <% } else { %>
-                <h3>No blog found</h3>
-            <% } %>
-        </div>
+        <% if (blog.length) { %>
+            <% blog.forEach((user) => { %>
+                <div class="blog-card">
+                    <h3><%= user.name %></h3>
+                    <p><%= user.age %></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <h3>No Blog Found</h3>
+        <% } %>
     </div>
-    
 </body>
 </html>
