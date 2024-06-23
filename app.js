@@ -6,23 +6,50 @@ let morgan = require('morgan');
 const mongoose = require('mongoose');
 // import Blog model from models/Blogs
 const Blog = require('./models/Blogs');
+// import User model from models/Users
+const User = require('./models/Users');
 // create app
 const app = express();
 
+
 // app.get('/add-blog', 
+
 app.get('/add-blog', async (req, res) => {
     if (req) {
         let blog = new Blog({
-            title: 'blog2',
+            title: 'title2',
             intro: 'intro2',
             body: 'body2'
         })
-
         await blog.save()
         res.send('blog saved')
     }
 })
 
+// generate username
+const { generateUsername } = require("unique-username-generator");
+app.get('/add-user', async (req, res) => {
+    if(req){
+        let username = generateUsername("",3);
+
+        let user = new User({
+            name: username,
+            email: `${username}@gmail.com`,
+            password:`${username}1234`
+        })
+        await user.save()
+        res.send('user data saved')
+    }
+})
+
+// find blog 'User' by id
+app.get('/find-blog', async (req, res) => {
+    if(req){
+        let blog = await  User.findById("6677f904b21c40735614632f");
+        console.log(blog)
+        res.json(blog)
+    }
+})
 // db url
 let mongoUrl = "mongodb+srv://kar3a:test1234@cluster0.zrz245h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // connect db
@@ -49,16 +76,16 @@ app.use(morgan('dev'))
 // static file
 app.use(express.static('public'))
 
-app.get('/',(req,res)=>{
-    const blog = [
-        {name: 'kkh',age:13},
-        {name:'mmk',age:12}
-        ]
+app.get('/', async(req,res)=>{
+    // find all blogs
+    let blogs = await User.find().sort({createdAt:-1})
+    console.log(blogs)
     if(req){
         // use ejs render
         res.render('home',
-        {blog,
-        title:'Home Page'
+        {
+            blogs,
+            title:'Home Page'
         }
         )
     }

@@ -1,4 +1,5 @@
 // import mongoose
+const { Timestamp } = require('mongodb')
 const mongoose = require('mongoose')
 
 // create schema
@@ -17,7 +18,11 @@ const BlogSchema = mongoose.Schema({
         type: String,
         required: false
     },
+},
+{
+    timestamps: true
 })
+
 
 //  Blog is collection name & must be same as collection name with singular form
 // export model with BlogSchema
