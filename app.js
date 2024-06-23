@@ -2,8 +2,21 @@ const { render } = require('ejs');
 const express = require('express');
 let morgan = require('morgan');
 const mongoose = require('mongoose');
-
+const Blog = require('./models/Blogs');
 const app = express();
+
+app.get('/add-blog', async (req, res) => {
+    if (req) {
+        let blog = new Blog({
+            title: 'blog2',
+            intro: 'intro2',
+            body: 'body2'
+        })
+
+        await blog.save()
+        res.send('blog saved')
+    }
+})
 
 // db url
 let mongoUrl = "mongodb+srv://kar3a:test1234@cluster0.zrz245h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
