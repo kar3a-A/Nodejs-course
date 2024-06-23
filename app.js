@@ -70,6 +70,10 @@ app.set('views','./views')
 // recall ejs engine
 app.set('view engine', 'ejs')
 
+let expressLayouts = require('express-ejs-layouts')
+app.use(expressLayouts);
+app.set('layout', 'layouts/default');
+
 // package use 'morgan'
 // show status code 
 app.use(morgan('dev'))
@@ -118,6 +122,15 @@ app.get('/cart', (req, res) => {
             {
                 items,
                 title: 'Cart'
+            }
+        )
+    }
+})
+app.get('/blogs/create', (req, res) => {
+    if (req) {
+        res.render('blogs/create',
+            {
+                title: 'Create Blog'
             }
         )
     }
