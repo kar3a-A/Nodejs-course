@@ -26,6 +26,7 @@ nav {
 .container {
     margin: 0 10px;
 }
+/*! --------------------- */
 .blog-card {
     display: flex;
     flex-direction: column;
@@ -38,6 +39,7 @@ nav {
 .blog-card:hover {
     background-color: rgba(0, 255, 204, 0.384);
 }
+
 /* blog create page css */
 .blog-form {
     max-width: 800px;
@@ -72,4 +74,24 @@ nav {
     border-radius: 20px;
     border: 1px solid green;
     color: white;
+  }
+/*! --------------------- */
+.user-form {
+    max-width: 800px;
+    margin: auto;
+    border: 1px solid lightgreen;
+    padding: 40px;
+  }
+  
+  .user-form h1 {
+    color: green;
+  }
+  
+  .user-create-btn {
+    background-color: green;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 1px solid green;
+    color: white; 
   }

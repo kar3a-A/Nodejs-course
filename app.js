@@ -10,38 +10,25 @@ const Blog = require('./models/Blogs');
 const User = require('./models/Users');
 // create app
 const app = express();
-
-
-// app.get('/add-blog', 
-
-app.get('/add-blog', async (req, res) => {
-    if (req) {
-        let blog = new Blog({
-            title: 'title2',
-            intro: 'intro2',
-            body: 'body2'
-        })
-        await blog.save()
-        res.send('blog saved')
-    }
-})
-
-// generate username
-const { generateUsername } = require("unique-username-generator");
-app.get('/add-user', async (req, res) => {
-    if(req){
-        let username = generateUsername("",3);
-
-        let user = new User({
-            name: username,
-            email: `${username}@gmail.com`,
-            password:`${username}1234`
-        })
-        await user.save()
-        res.send('user data saved')
-    }
-})
-
+//! -----------------------
+// use middleware
+app.use(express.urlencoded({ extended: true}))
+// using ejs with app.set (...)
+app.set('views','./views')
+// recall ejs engine
+app.set('view engine', 'ejs')
+//! -----------------------
+// use express layouts
+let expressLayouts = require('express-ejs-layouts')
+app.use(expressLayouts);
+app.set('layout', 'layouts/default');
+//! -----------------------
+// package use 'morgan'
+// show status code 
+app.use(morgan('dev'))
+// static file
+app.use(express.static('public'))
+//! -----------------------
 // find blog 'User' by id
 app.get('/find-blog', async (req, res) => {
     if(req){
@@ -50,6 +37,7 @@ app.get('/find-blog', async (req, res) => {
         res.json(blog)
     }
 })
+//! -----------------------
 // db url
 let mongoUrl = "mongodb+srv://kar3a:test1234@cluster0.zrz245h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // connect db
@@ -64,36 +52,44 @@ mongoose.connect(mongoUrl).then(()=>{
     // if error
     console.log(err)
 })
-
-// using ejs with app.set (...)
-app.set('views','./views')
-// recall ejs engine
-app.set('view engine', 'ejs')
-
-let expressLayouts = require('express-ejs-layouts')
-app.use(expressLayouts);
-app.set('layout', 'layouts/default');
-
-// package use 'morgan'
-// show status code 
-app.use(morgan('dev'))
-// static file
-app.use(express.static('public'))
+//! -----------------------
 
 app.get('/', async(req,res)=>{
     // find all blogs
-    let blogs = await User.find().sort({createdAt:-1})
-    console.log(blogs)
+    let users = await User.find().sort({createdAt:-1})
     if(req){
         // use ejs render
         res.render('home',
         {
-            blogs,
+            users,
             title:'Home Page'
         }
         )
     }
 })
+    app.get('/users/create',(req,res)=>{
+        if(req){
+            res.render('users/create',
+                {
+                    title: 'Create User'
+                }
+            )
+        }
+    })
+    app.post('/', async (req, res) => {
+        if (req) {
+            let {userName, userEmail, userPassword} = req.body
+            let user = new User({
+                name: userName,
+                email: userEmail,
+                password: userPassword
+            })
+            await user.save()
+            console.log('~~~  User saved in db  ~~~')
+            res.redirect('/')
+        }
+    })
+
 app.get('/about', (req, res) => {
     if (req) {
         res.render('about',
@@ -103,15 +99,40 @@ app.get('/about', (req, res) => {
     }
 })
 
-app.get('/contact', (req, res) => {
+app.get('/blogs',async (req, res) => {
     if (req) {
-        res.render('contact',
+        let blogs = await Blog.find().sort({createdAt:-1});
+        res.render('blogs',
             {
-                title: 'Contact Page'
+                blogs,
+                title: 'Blogs Page'
             }
         )
     }
 })
+    app.get('/blogs/create', (req, res) => {
+        if (req) {
+            res.render('blogs/create',
+                {
+                    title: 'Create Blog'
+                }
+            )
+        }
+    })
+    app.post('/blogs',async (req, res) => {
+        if (req) {
+            let {blogTitle,blogIntro,blogBody} = req.body
+            let blog = new Blog({
+                title: blogTitle,
+                intro: blogIntro,
+                body: blogBody
+            })
+            await blog.save()
+            console.log('~~~  Blog saved in db  ~~~')
+            res.redirect('/blogs')
+        }
+    })
+
 app.get('/cart', (req, res) => {
     const items = [
         {product:"Asus Zenbook 14 oled", price:1400},
@@ -126,15 +147,8 @@ app.get('/cart', (req, res) => {
         )
     }
 })
-app.get('/blogs/create', (req, res) => {
-    if (req) {
-        res.render('blogs/create',
-            {
-                title: 'Create Blog'
-            }
-        )
-    }
-})
+
+
 // app use for 404 page ***
 app.use((req,res)=>{
     if(req){

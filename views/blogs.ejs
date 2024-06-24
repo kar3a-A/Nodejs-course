@@ -1,0 +1,14 @@
+
+<h3>Blogs page</h3>
+
+<% if (blogs.length) { %>
+    <% blogs.forEach(blog => { %>
+        <div class="blog-card">
+            <h3><%= blog.title %></h3>
+            <h4><%= blog.intro %></h4>
+            <p><%= blog.body %></p>
+        </div>
+    <% }) %>
+<% } else { %>
+    <h3>No Blog Found</h3>
+<% } %>
