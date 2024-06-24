@@ -1,160 +1,161 @@
+// Import necessary modules
 const { render } = require('ejs');
 const express = require('express');
-// package use 'morgan'
-let morgan = require('morgan');
-// import mongoose
+const morgan = require('morgan');
 const mongoose = require('mongoose');
-// import Blog model from models/Blogs
 const Blog = require('./models/Blogs');
-// import User model from models/Users
 const User = require('./models/Users');
-// create app
+//! -----------------------------------------------------------------------
+// Create the express app
 const app = express();
-//! -----------------------
-// use middleware
-app.use(express.urlencoded({ extended: true}))
-// using ejs with app.set (...)
-app.set('views','./views')
-// recall ejs engine
-app.set('view engine', 'ejs')
-//! -----------------------
-// use express layouts
-let expressLayouts = require('express-ejs-layouts')
+
+// Middleware to parse urlencoded request bodies
+app.use(express.urlencoded({ extended: true}));
+
+// Set the views directory and the view engine to ejs
+app.set('views','./views');
+app.set('view engine', 'ejs');
+
+// Use express-ejs-layouts and set the layout to default
+const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 app.set('layout', 'layouts/default');
-//! -----------------------
-// package use 'morgan'
-// show status code 
-app.use(morgan('dev'))
-// static file
-app.use(express.static('public'))
-//! -----------------------
-// find blog 'User' by id
+
+// Use morgan to show status code
+app.use(morgan('dev'));
+
+// Use static files from the public directory
+app.use(express.static('public'));
+//! -----------------------------------------------------------------------
+// Route to find a blog by id
 app.get('/find-blog', async (req, res) => {
-    if(req){
-        let blog = await  User.findById("6677f904b21c40735614632f");
-        console.log(blog)
-        res.json(blog)
-    }
-})
-//! -----------------------
-// db url
+    // Find the blog by id and send it back as json
+    let blog = await User.findById("6677f904b21c40735614632f");
+    console.log(blog);
+    res.json(blog);
+});
+//! -----------------------------------------------------------------------
+// Connect to the database
 let mongoUrl = "mongodb+srv://kar3a:test1234@cluster0.zrz245h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-// connect db
 mongoose.connect(mongoUrl).then(()=>{
-    console.log('db connected')
-    // app.listen for listen server
-    // start server
+    console.log('db connected');
+    // Start the server
     app.listen(3000,()=>{
-        console.log('app is running on port 3000')
-    })
+        console.log('app is running on port 3000');
+    });
 }).catch((err)=>{
-    // if error
-    console.log(err)
-})
-//! -----------------------
-
+    // If there is an error connecting to the database, log it
+    console.log(err);
+});
+//! -----------------------------------------------------------------------
+// Route to get all users
 app.get('/', async(req,res)=>{
-    // find all blogs
-    let users = await User.find().sort({createdAt:-1})
-    if(req){
-        // use ejs render
-        res.render('home',
+    // Find all users and sort them by createdAt in descending order
+    let users = await User.find().sort({createdAt:-1});
+    // Render the home page with the users and a title
+    res.render('home',
+    {
+        users,
+        title:'Home Page'
+    }
+    );
+});
+
+// Route to create a user
+app.get('/users/create',(req,res)=>{
+    // Render the create user page with a title
+    res.render('users/create',
         {
-            users,
-            title:'Home Page'
+            title: 'Create User'
         }
-        )
-    }
-})
-    app.get('/users/create',(req,res)=>{
-        if(req){
-            res.render('users/create',
-                {
-                    title: 'Create User'
-                }
-            )
-        }
-    })
-    app.post('/', async (req, res) => {
-        if (req) {
-            let {userName, userEmail, userPassword} = req.body
-            let user = new User({
-                name: userName,
-                email: userEmail,
-                password: userPassword
-            })
-            await user.save()
-            console.log('~~~  User saved in db  ~~~')
-            res.redirect('/')
-        }
-    })
+    );
+});
+app.post('/', async (req, res) => {
+    // Get the user name, email, and password from the request body
+    let {userName, userEmail, userPassword} = req.body
+    // Create a new user with the provided information
+    let user = new User({
+        name: userName,
+        email: userEmail,
+        password: userPassword
+    });
+    // Save the user to the database
+    await user.save();
+    console.log('~~~  User saved in db  ~~~');
+    // Redirect to the home page
+    res.redirect('/');
+});
 
+// Route to get the about page
 app.get('/about', (req, res) => {
-    if (req) {
-        res.render('about',
-            {
-                title: 'About Page'}
-        )
-    }
-})
+    // Render the about page with a title
+    res.render('about',
+        {
+            title: 'About Page'
+        }
+    );
+});
 
+// Route to get all blogs
 app.get('/blogs',async (req, res) => {
-    if (req) {
-        let blogs = await Blog.find().sort({createdAt:-1});
-        res.render('blogs',
-            {
-                blogs,
-                title: 'Blogs Page'
-            }
-        )
-    }
-})
-    app.get('/blogs/create', (req, res) => {
-        if (req) {
-            res.render('blogs/create',
-                {
-                    title: 'Create Blog'
-                }
-            )
+    // Find all blogs and sort them by createdAt in descending order
+    let blogs = await Blog.find().sort({createdAt:-1});
+    // Render the blogs page with the blogs and a title
+    res.render('blogs',
+        {
+            blogs,
+            title: 'Blogs Page'
         }
-    })
-    app.post('/blogs',async (req, res) => {
-        if (req) {
-            let {blogTitle,blogIntro,blogBody} = req.body
-            let blog = new Blog({
-                title: blogTitle,
-                intro: blogIntro,
-                body: blogBody
-            })
-            await blog.save()
-            console.log('~~~  Blog saved in db  ~~~')
-            res.redirect('/blogs')
-        }
-    })
+    );
+});
 
+// Route to create a blog
+app.get('/blogs/create', (req, res) => {
+    // Render the create blog page with a title
+    res.render('blogs/create',
+        {
+            title: 'Create Blog'
+        }
+    );
+});
+app.post('/blogs',async (req, res) => {
+    // Get the blog title, intro, and body from the request body
+    let {blogTitle,blogIntro,blogBody} = req.body
+    // Create a new blog with the provided information
+    let blog = new Blog({
+        title: blogTitle,
+        intro: blogIntro,
+        body: blogBody
+    });
+    // Save the blog to the database
+    await blog.save();
+    console.log('~~~  Blog saved in db  ~~~');
+    // Redirect to the blogs page
+    res.redirect('/blogs');
+});
+
+// Route to get the cart page
 app.get('/cart', (req, res) => {
+    // Create an array of items with the product and price
     const items = [
         {product:"Asus Zenbook 14 oled", price:1400},
         {product:"Asus Zenbook 13 oled", price:1200}
-    ]
-    if (req) {
-        res.render('cart',
-            {
-                items,
-                title: 'Cart'
-            }
-        )
-    }
-})
+    ];
+    // Render the cart page with the items and a title
+    res.render('cart',
+        {
+            items,
+            title: 'Cart'
+        }
+    );
+});
 
-
-// app use for 404 page ***
+// Route for 404 page
 app.use((req,res)=>{
-    if(req){
-        res.status(404).render('404',
-            {title:'404 Page'}
-        );
-    }
-})
+    // Render the 404 page with a title
+    res.status(404).render('404',
+        {title:'404 Page'}
+    );
+});
+
 
