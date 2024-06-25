@@ -134,6 +134,16 @@ app.post('/blogs',async (req, res) => {
     res.redirect('/blogs');
 });
 
+// Route to get the blog by id
+app.get('/single-blog', async(req,res)=>{
+    let blog = await Blog.findById('667950450065dc6366b33590')
+    console.log(blog)
+    res.render('blogs/show',{
+        blog,
+        title: 'Blog details'
+    })
+})
+
 // Route to get the cart page
 app.get('/cart', (req, res) => {
     // Create an array of items with the product and price
