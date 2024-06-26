@@ -1,10 +1,11 @@
 // Import necessary modules
-const { render } = require('ejs');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const Blog = require('./models/Blogs');
-const User = require('./models/Users');
+const userRoutes = require('./routes/userRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const aboutRoutes = require('./routes/aboutRoutes');
 //! -----------------------------------------------------------------------
 // Create the express app
 const app = express();
@@ -48,136 +49,12 @@ mongoose.connect(mongoUrl).then(()=>{
     console.log(err);
 });
 //! -----------------------------------------------------------------------
-// Route to get all users
-app.get('/', async(req,res)=>{
-    // Find all users and sort them by createdAt in descending order
-    let users = await User.find().sort({createdAt:-1});
-    // Render the home page with the users and a title
-    res.render('home',
-    {
-        users,
-        title:'Home Page'
-    }
-    );
-});
+app.use(userRoutes);
+app.use('/blogs',blogRoutes);
+app.use(cartRoutes);
+app.use(aboutRoutes)
 
-// Route to create a user
-app.get('/users/create',(req,res)=>{
-    // Render the create user page with a title
-    res.render('users/create',
-        {
-            title: 'Create User'
-        }
-    );
-});
-app.post('/', async (req, res) => {
-    // Get the user name, email, and password from the request body
-    let {userName, userEmail, userPassword} = req.body
-    // Create a new user with the provided information
-    let user = new User({
-        name: userName,
-        email: userEmail,
-        password: userPassword
-    });
-    // Save the user to the database
-    await user.save();
-    console.log('~~~  User saved in db  ~~~');
-    // Redirect to the home page
-    res.redirect('/');
-});
 
-// Route to get the about page
-app.get('/about', (req, res) => {
-    // Render the about page with a title
-    res.render('about',
-        {
-            title: 'About Page'
-        }
-    );
-});
-
-// Route to get all blogs
-app.get('/blogs',async (req, res) => {
-    // Find all blogs and sort them by createdAt in descending order
-    let blogs = await Blog.find().sort({createdAt:-1});
-    // Render the blogs page with the blogs and a title
-    res.render('blogs',
-        {
-            blogs,
-            title: 'Blogs Page'
-        }
-    );
-});
-
-// Route to create a blog
-app.get('/blogs/create', (req, res) => {
-    // Render the create blog page with a title
-    res.render('blogs/create',
-        {
-            title: 'Create Blog'
-        }
-    );
-});
-app.post('/blogs',async (req, res) => {
-    // Get the blog title, intro, and body from the request body
-    let {blogTitle,blogIntro,blogBody} = req.body
-    // Create a new blog with the provided information
-    let blog = new Blog({
-        title: blogTitle,
-        intro: blogIntro,
-        body: blogBody
-    });
-    // Save the blog to the database
-    await blog.save();
-    console.log('~~~  Blog saved in db  ~~~');
-    // Redirect to the blogs page
-    res.redirect('/blogs');
-});
-// Route to get the blog by id
-app.get(`/blogs/:id`, async(req,res,next)=>{
-    try {
-        let id = req.params.id
-        let blog = await Blog.findById(id)
-        console.log(blog)
-        res.render('blogs/show',{
-            blog,
-            title: 'Blog details'
-        })
-    } catch(err){
-        console.log(err)
-        next()
-    }
-    })
-    // Route to delete the blog by id
-    app.post(`/blogs/:id/delete`, async(req,res,next)=>{
-        try {
-            let id = req.params.id
-            await Blog.findByIdAndDelete(id)
-            console.log('~~~  Blog deleted in db  ~~~');
-            res.redirect('/blogs')
-
-        } catch(err){
-            console.log(err)
-            next()
-        }
-
-    })
-
-// Route to get the cart page
-app.get('/cart', (req, res) => {
-    // Create an array of items with the product and price
-    const items = [
-        {product:"Asus Zenbook 14 oled", price:1400},
-        {product:"Asus Zenbook 13 oled", price:1200}
-    ];
-    // Render the cart page with the items and a title
-    res.render('cart',
-        {
-            items,
-            title: 'Cart'
-        }
-    );
-});
 
 // Route for 404 page
 app.use((req,res)=>{
