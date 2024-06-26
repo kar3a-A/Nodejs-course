@@ -133,7 +133,6 @@ app.post('/blogs',async (req, res) => {
     // Redirect to the blogs page
     res.redirect('/blogs');
 });
-
 // Route to get the blog by id
 app.get(`/blogs/:id`, async(req,res,next)=>{
     try {
@@ -148,8 +147,21 @@ app.get(`/blogs/:id`, async(req,res,next)=>{
         console.log(err)
         next()
     }
+    })
+    // Route to delete the blog by id
+    app.post(`/blogs/:id/delete`, async(req,res,next)=>{
+        try {
+            let id = req.params.id
+            await Blog.findByIdAndDelete(id)
+            console.log('~~~  Blog deleted in db  ~~~');
+            res.redirect('/blogs')
 
-})
+        } catch(err){
+            console.log(err)
+            next()
+        }
+
+    })
 
 // Route to get the cart page
 app.get('/cart', (req, res) => {
