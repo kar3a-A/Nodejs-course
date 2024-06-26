@@ -135,14 +135,20 @@ app.post('/blogs',async (req, res) => {
 });
 
 // Route to get the blog by id
-app.get(`/blogs/:id`, async(req,res)=>{
-    let id = req.params.id
-    let blog = await Blog.findById(id)
-    console.log(blog)
-    res.render('blogs/show',{
-        blog,
-        title: 'Blog details'
-    })
+app.get(`/blogs/:id`, async(req,res,next)=>{
+    try {
+        let id = req.params.id
+        let blog = await Blog.findById(id)
+        console.log(blog)
+        res.render('blogs/show',{
+            blog,
+            title: 'Blog details'
+        })
+    } catch(err){
+        console.log(err)
+        next()
+    }
+
 })
 
 // Route to get the cart page
