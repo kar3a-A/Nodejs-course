@@ -1,0 +1,11 @@
+<% if (users.length) { %>
+    <% users.forEach(user => { %>
+        <div class="item-card">
+            <h3>Username: <%= user.username %></h3>
+            <p>Email: <%= user.email %></p>
+            <p>Name: <%= user.name %></p>
+        </div>
+    <% }) %>
+<% } else { %>
+    <h3>No User</h3>
+<% } %>

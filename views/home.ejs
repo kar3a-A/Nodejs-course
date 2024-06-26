@@ -1,13 +1,23 @@
 
-<h3>Home Page</h3>
+<h2>Shopping list</h2>
+<% if (items.length) { %>
+    <% items.forEach(item => { %>
+    <a href="/items/<%= item._id %>">
+        <div class="item-card">
+            <div class="left">
+                <img src="<%= item.img %>" alt="<%= item.name %> ">
+            </div>
+            <div class="right">
 
-<% if (users.length) { %>
-    <% users.forEach((user) => { %>
-        <div class="blog-card">
-            <h3><%= user.name %></h3>
-            <p><%= user.email %></p>
+                    <h3><%= item.name %></h3>
+
+        
+                <p>Price: $<b><%= item.price %></b></p>
+        
+            </div>
         </div>
+    </a>
     <% }) %>
 <% } else { %>
-    <h3>No Blog Found</h3>
+    <h3>Out of stock</h3>
 <% } %>
