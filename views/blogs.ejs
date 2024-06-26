@@ -4,7 +4,9 @@
 <% if (blogs.length) { %>
     <% blogs.forEach(blog => { %>
         <div class="blog-card">
-            <h3><%= blog.title %></h3>
+            <a href="/blogs/<%= blog._id  %> ">
+                <h3><%= blog.title %></h3>
+            </a>
             <h4><%= blog.intro %></h4>
             <p><%= blog.body %></p>
         </div>

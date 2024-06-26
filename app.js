@@ -135,8 +135,9 @@ app.post('/blogs',async (req, res) => {
 });
 
 // Route to get the blog by id
-app.get('/single-blog', async(req,res)=>{
-    let blog = await Blog.findById('667950450065dc6366b33590')
+app.get(`/blogs/:id`, async(req,res)=>{
+    let id = req.params.id
+    let blog = await Blog.findById(id)
     console.log(blog)
     res.render('blogs/show',{
         blog,

@@ -2,6 +2,7 @@ body {
     background-color: black;
     color: white;
 }
+
 /* nav bar  */
 nav {
     padding:0 20px;
@@ -38,6 +39,13 @@ nav {
 }
 .blog-card:hover {
     background-color: rgba(0, 255, 204, 0.384);
+}
+.blog-card a {
+  text-decoration: none;
+  color: white;
+}
+.blog-card a:hover {
+  color: aqua;
 }
 
 /* blog create page css */
