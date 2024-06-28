@@ -24,13 +24,16 @@ const App = () => {
     <>
       <h3>List</h3>
       <ul>
-        {list.map((item)=>{
+        { !!list.length && list.map((item)=>{
           return (
             <li key={item.id}>{item.title}
               <button onClick={()=> deletePost(item.id)}>Delete</button>
             </li>
           )
         })}
+        {
+          !list.length && <h3>No post found</h3>
+        }
       </ul>
     </>
   )
