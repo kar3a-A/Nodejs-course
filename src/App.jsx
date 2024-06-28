@@ -1,40 +1,32 @@
 import { useState } from "react"
+import Navbar from "./components/Navbar/Navbar"
+import PostsList from "./components/PostsList/PostsList"
+
+
+
 
 
 const App = () => {
-  const [list, setlist] = useState([
+  // eslint-disable-next-line no-unused-vars
+  const [posts, setposts] = useState([
     {
-      id:1,
-      title: 'Ninja'
+      id: 1,
+      title: "post 1"
     },
     {
-      id:2,
-      title: 'Turtle'
+      id: 2,
+      title: "post 2"
     },
     {
-      id:3,
-      title: 'Dragon'
+      id: 3,
+      title: "post 3"
     }
   ])
 
-  let deletePost = (id) => {
-    setlist((prev)=> prev.filter((item)=> item.id !== id))
-  }
   return (
     <>
-      <h3>List</h3>
-      <ul>
-        { !!list.length && list.map((item)=>{
-          return (
-            <li key={item.id}>{item.title}
-              <button onClick={()=> deletePost(item.id)}>Delete</button>
-            </li>
-          )
-        })}
-        {
-          !list.length && <h3>No post found</h3>
-        }
-      </ul>
+      <Navbar />
+      <PostsList posts={posts}/>
     </>
   )
 }
