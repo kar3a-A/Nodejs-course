@@ -1,51 +1,19 @@
-/* eslint-disable react/no-unknown-property */
-// import saitama from './assets/saitama.png'
-import './App.css'
-import { useState } from 'react'
+import { useState } from "react"
 
-function App() {
-  const [list, setlist] = useState([
-    {
-      id:1,
-      title: 'Saitama'
-    },
-    {
-      id:2,
-      title: 'Forest'
-    },
-    {
-      id:3,
-      title: 'Book'
-    }
-  ])
-  let changeList = ()=>{
-    setlist([
-      {
-        id:1,
-        title: 'Naruto'
-      },
-      {
-        id:2,
-        title: 'Saseki'
-      },
-      {
-        id:3,
-        title: 'Sakura'
-      }
-    ])
-  }
+
+const App = () => {
+  const [count, setcount] = useState(1)
   return (
     <>
       <div>
-        <h3>List</h3>
-        <ul>
-          {list.map((item)=>{
-            return <li key={item.id}>{item.title}</li>
-          })}
-        </ul>
-          <button onClick={()=>changeList() }>Change</button>
+        <h3>Counter</h3>
+        <h3>Count {count}</h3>
+        <button onClick={()=>{setcount((preState)=>preState+1)}}>Increment</button>
+        <button onClick={() =>{setcount((preState)=>preState-1)}}>Decrement</button>
+        <button onClick={()=>{setcount(1)}}>
+          Reset
+        </button>
       </div>
-
     </>
   )
 }
