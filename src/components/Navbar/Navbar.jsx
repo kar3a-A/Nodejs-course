@@ -1,8 +1,9 @@
 import './Navbar.css'
 
+// eslint-disable-next-line react/prop-types
 const Navbar = ({setshowModal}) => {
   return (
-    <>
+    <div className="navbar-component">
       <nav>
           <div className="container">
               <h1>logo</h1>
@@ -13,7 +14,7 @@ const Navbar = ({setshowModal}) => {
               </ul>
           </div>
       </nav>  
-    </>
+    </div>
 
   )
 }

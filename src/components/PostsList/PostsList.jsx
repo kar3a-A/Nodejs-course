@@ -6,7 +6,7 @@ import './PostsList.css'
 const PostsList = ({posts}) => {
   return (
     <>
-      <div className="postList">
+      <div className="postsList-component">
       {/* eslint-disable-next-line react/prop-types */}
         { posts.map((post)=>{
           return (

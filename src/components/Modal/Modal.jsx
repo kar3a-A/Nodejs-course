@@ -6,10 +6,12 @@ import './Modal.css'
 const Modal = ({children,setshowModal}) => {
   return (
     createPortal(
-      <div className="modal-backdrop">
-        <div className="modal">
-          {children}
-          <button onClick={() => setshowModal(false)}>Close</button>
+      <div className='modal-component'>
+        <div className="modal-backdrop">
+          <div className="modal">
+            {children}
+            <button onClick={() => setshowModal(false)}>Close</button>
+          </div>
         </div>
       </div>
     , document.getElementById('modal')
