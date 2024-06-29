@@ -24,13 +24,14 @@ const App = () => {
     }
   ])
   const [showModal, setshowModal] = useState(false)
+  const [danger, setdanger] = useState(true)
   return (
     <>
       <Navbar setshowModal={setshowModal}/>
       <PostsList posts={posts}/>
       {
         showModal && 
-        <Modal setshowModal={setshowModal}>
+        <Modal danger={danger} setshowModal={setshowModal}>
           { /* Modal content */ }
           <h1>Zoom class is available now.</h1>
           <p>Anyone can join.</p>
