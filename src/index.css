@@ -1,0 +1,10 @@
+:root {
+    background-color: black;
+    color: white;
+}
+#modal div{
+    background-color:rgba(30, 31, 31, 0.281);
+}
+#modal .modal {
+    background-color: rgba(94, 60, 151, 0.945);
+}
