@@ -1,4 +1,4 @@
-import './index.css'
+import './PostsList.css'
 
 // {posts} is the desctructured props
 // for not using props.posts

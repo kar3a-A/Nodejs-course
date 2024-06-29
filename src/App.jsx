@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Navbar from "./components/Navbar/Navbar"
 import PostsList from "./components/PostsList/PostsList"
+import Modal from "./components/Modal/Modal"
 
 
 
@@ -27,6 +28,11 @@ const App = () => {
     <>
       <Navbar />
       <PostsList posts={posts}/>
+      <Modal>
+        { /* Modal content */ }
+        <h1>Zoom class is available now.</h1>
+        <p>Anyone can join.</p>
+      </Modal>
     </>
   )
 }
