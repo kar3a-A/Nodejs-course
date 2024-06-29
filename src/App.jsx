@@ -23,16 +23,20 @@ const App = () => {
       title: "post 3"
     }
   ])
-
+  const [showModal, setshowModal] = useState(false)
   return (
     <>
-      <Navbar />
+      <Navbar setshowModal={setshowModal}/>
       <PostsList posts={posts}/>
-      <Modal>
-        { /* Modal content */ }
-        <h1>Zoom class is available now.</h1>
-        <p>Anyone can join.</p>
-      </Modal>
+      {
+        showModal && 
+        <Modal setshowModal={setshowModal}>
+          { /* Modal content */ }
+          <h1>Zoom class is available now.</h1>
+          <p>Anyone can join.</p>
+        </Modal>
+      }
+
     </>
   )
 }

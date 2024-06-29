@@ -1,6 +1,6 @@
 import './Navbar.css'
 
-const Navbar = () => {
+const Navbar = ({setshowModal}) => {
   return (
     <>
       <nav>
@@ -9,6 +9,7 @@ const Navbar = () => {
               <ul>
                   <li>Home</li>
                   <li>Posts</li>
+                  <li onClick={()=>setshowModal(true)}>SignIn</li>
               </ul>
           </div>
       </nav>  
