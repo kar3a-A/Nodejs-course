@@ -1,20 +1,11 @@
+
 import './Navbar.css'
 
-const Navbar = ({setshowModal}) => {
+const Navbar = () => {
   return (
     <>
-      <nav>
-          <div className="container">
-              <h1>logo</h1>
-              <ul>
-                  <li>Home</li>
-                  <li>Posts</li>
-                  <li onClick={()=>setshowModal(true)}>SignIn</li>
-              </ul>
-          </div>
-      </nav>  
+        <h2>This is navbar</h2>
     </>
-
   )
 }
 
