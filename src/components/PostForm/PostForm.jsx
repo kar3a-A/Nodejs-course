@@ -1,11 +1,25 @@
 import { useState } from 'react'
 import styles from './PostForm.module.css'
 
-const PostForm = () => {
+// eslint-disable-next-line react/prop-types
+const PostForm = ({addPost}) => {
     const [title, settitle] = useState("")
+    let resetForm = () =>{
+      settitle("")
+    }
+    let uploadPost= (e)=>{
+      e.preventDefault();
+      let post = {
+        id: Math.floor(Math.random()*10000),
+        title: title
+      }
+      resetForm()
+      addPost(post)
+    }
   return (
     <>
-      <form className={styles.postForm}>
+      <form className={styles.postForm} 
+        onSubmit={uploadPost}>
         <h2>Create Post</h2>
         <div className={styles.formControl}>
             <label htmlFor="">Title</label>
@@ -14,10 +28,10 @@ const PostForm = () => {
         <p>{title}</p>
 
         <div className={styles.formControl}>
-            <button style={{marginRight:3}}>
+            <button style={{marginRight:3}}
+              type='submit'>
               Post Now
             </button>
-            <button type='button' onClick={()=>settitle(" ")}>Clear</button>
         </div>
       </form>
     </>

@@ -19,12 +19,15 @@ const App = () => {
       id: 2,
       title: "post 2"
     },
-    {
-      id: 3,
-      title: "post 3"
-    }
+
   ])
+
+  let addPost = (post) =>{
+    setposts((prev)=>[...prev, post ])
+    setshowModal(false)
+  }
   const [showModal, setshowModal] = useState(false)
+  // eslint-disable-next-line no-unused-vars
   const [danger, setdanger] = useState(true)
 
   return (
@@ -35,7 +38,7 @@ const App = () => {
         showModal && 
         <Modal danger={danger} setshowModal={setshowModal}>
           { /* Modal content */ }
-          <PostForm />
+          <PostForm addPost={addPost}/>
         </Modal>
       }
 
