@@ -29,3 +29,14 @@
 .border-green {
     border: 2px solid green;
 }
+.modal .button {
+    border : 1px solid gray;
+    background-color: #c46ff4;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.modal .button:hover {
+    background-color: palevioletred;
+    font-weight: bold;
+}

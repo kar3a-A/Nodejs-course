@@ -11,7 +11,7 @@ const Modal = ({children,setshowModal, danger}) => {
         <div className="modal-backdrop">
           <div className={`modal ${modalClassName}`}>
             {children}
-            <button onClick={() => setshowModal(false)}>Close</button>
+            <button className='button' onClick={() => setshowModal(false)}>Close</button>
           </div>
         </div>
       </div>
