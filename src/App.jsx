@@ -1,4 +1,4 @@
-
+import TripList from './components/TripList/TripList'
 import './App.css'
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <h2>Hello</h2>
+      <TripList />
     </>
   )
 }
