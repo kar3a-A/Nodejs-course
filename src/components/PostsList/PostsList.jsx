@@ -11,7 +11,9 @@ const PostsList = ({posts}) => {
         { posts.map((post)=>{
           return (
           <div key={post.id} className={`single-post ${styles.card}`}>
-              {post.title}
+              <h3>{post.title}</h3> 
+              <h4>Status: {post.status}</h4>
+
             </div>
           )
           })

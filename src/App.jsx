@@ -13,11 +13,13 @@ const App = () => {
   const [posts, setposts] = useState([
     {
       id: 1,
-      title: "post 1"
+      title: "Manga",
+      status: "ongoing"
     },
     {
       id: 2,
-      title: "post 2"
+      title: "Book",
+      status: "dropped"
     },
 
   ])
