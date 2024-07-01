@@ -2,15 +2,18 @@
     "trips": [
         {
             "name": "Two nights Beach",
-            "price": 100000
+            "price": 100000,
+            "location": "beach"
         },
         {
             "name": "Three nights Mountain",
-            "price": 200000
+            "price": 200000,
+            "location": "mountain"
         },
         {
             "name": "One night Honeymoon",
-            "price": 150000
+            "price": 150000,
+            "location": "beach"
         }
     ]
 }
