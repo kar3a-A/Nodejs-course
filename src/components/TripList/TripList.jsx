@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import styles from './TripList.module.css'
 
 
@@ -7,14 +7,19 @@ const TripList = () => {
 
     const [trips, setTrips] = useState([])
     const [url, setUrl] = useState('http://localhost:3000/trips')
-    useEffect(() => {
+    let fetchTrips= useCallback(() =>{
         fetch(url)
         .then(response => response.json())
         .then(data => {
             setTrips(data)
-        })
+        },[url])
         .catch(err => console.log(err))
-    }, [url])
+    },[url])
+    
+    // console.log(trips)
+    useEffect(() => {
+        fetchTrips()
+    }, [fetchTrips])
   return (
     <div>
         <h1>Ready to go?</h1>
