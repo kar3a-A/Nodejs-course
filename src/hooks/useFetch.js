@@ -8,8 +8,14 @@ function useFetch(url) {
     const [error, setError] = useState(null)
 
     useEffect(() => {
+        // abort controller
+        let abortController = new AbortController();
+        let signal = abortController.signal
+
         setLoading(true);
-        fetch(url)
+        fetch(url,{
+            signal: signal
+        })
         .then(response =>{
             console.log(response)
             if(!response.ok){
@@ -27,7 +33,13 @@ function useFetch(url) {
             console.log(err.message);
             setError(err.message)
         })
+
+        // cleanup function
+        return () =>{
+            abortController.abort()
+        }
     }, [url]);
+    
 
     return {data,loading,error}
 }
