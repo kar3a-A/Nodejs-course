@@ -52,6 +52,9 @@ h2 {
   align-items: center;
   margin-top: 24px;
 }
+.todo-item-container-pending {
+  display: none;
+}
 
 .todo-item {
   display: flex;
