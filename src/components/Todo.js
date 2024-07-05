@@ -1,18 +1,46 @@
+import { useState } from "react"
 
 
-export default function Todo({todo, isPending, deleteTodo}) {
+export default function Todo({todo,updateTodo, isPending, deleteTodo}) {
+    const [isEdit, setIsEdit] = useState(false)
+    const [title, setTitle] = useState(todo.title)
+
+    const updateTodohandler = (e) => {
+        e.preventDefault()
+
+        let updatedTodo = {
+            id: todo.id,
+            title: title,
+            completed: todo.completed
+        }
+        updateTodo(updatedTodo)
+        setIsEdit(false)
+    }
     return (
     <li className={`${isPending ? 'todo-item-container-pending' : 'todo-item-container'}`} >
         <div className="todo-item">
         <input type="checkbox" 
         checked={todo.completed}
-        onChange={()=> ontoggle(todo.id)}    
         />
         {/* // add line through for completed */}
-        <span className={`todo-item-label ${todo.completed && 'line-through'}`}>
-            {todo.title}
-        </span>
-        {/* <input type="text" className="todo-item-input" value="Go to Grocery" /> */}
+        {   !isEdit &&
+            <span 
+                onDoubleClick={()=> setIsEdit(true)}
+                className={`todo-item-label ${todo.completed && 'line-through'}`}>
+                {todo.title}
+            </span>
+        }
+        {   
+            isEdit &&
+            <form  onSubmit={updateTodohandler}>
+                <input 
+                    onDoubleClick={()=> setIsEdit(false)}
+                    type="text" 
+                    className="todo-item-input" 
+                    value={title} 
+                    onChange={(e)=> setTitle(e.target.value)} />
+            </form>
+        }
         </div>
         <button className="x-button" onClick={()=>deleteTodo(todo.id)}>
         <svg

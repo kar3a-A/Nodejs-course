@@ -38,6 +38,26 @@ function App() {
     setData((prevState)=> prevState.filter((todo)=> todo.id !== todoID))
   }
 
+  let updateTodo = (todo) =>{
+    // update todo server side
+    fetch(`${link}/${todo.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(todo)
+    })
+    // update todo client side
+    setData((prevState)=> {
+      prevState.map((prevTodo)=>{
+        if(prevTodo.id === todo.id){
+          return todo
+        }
+        return prevTodo
+      })
+    })
+  }
+
 
   return (
     <div className="todo-app-container">
@@ -47,7 +67,11 @@ function App() {
         {/* To do form here  */}
         <TodoForm  addTodo={AddTodo} />
         {/* To do list here */}
-        <TodoList data={data} isPending={isPending} deleteTodo={deleteTodo}/>
+        <TodoList 
+          data={data} 
+          isPending={isPending} 
+          deleteTodo={deleteTodo}
+          updateTodo={updateTodo}/>
         {/* Check all and remaining  */}
         <CheckAllAndRemaining />
 

@@ -11,22 +11,17 @@
       "completed": false
     },
     {
-      "id": "3",
-      "title": "Learn React Native",
-      "completed": false
-    },
-    {
       "id": "5",
       "title": "Learn MongoDB",
       "completed": true
     },
     {
       "id": "6638",
-      "title": "Learn Js",
+      "title": "Learn Javascript",
       "completed": false
     },
     {
-      "id": 2424,
+      "id": "2424",
       "title": "Learn SQL",
       "completed": false
     }
