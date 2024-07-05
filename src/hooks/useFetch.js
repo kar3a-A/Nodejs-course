@@ -23,7 +23,7 @@ function useFetch(url) {
       
       }, [url])
 
-    return {data, isPending}
+    return {data,setData, isPending}
 }
 
 export default useFetch
