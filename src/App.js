@@ -24,6 +24,21 @@ function App() {
     setData((prevState)=> [...prevState, todo])
 
   }
+
+  let deleteTodo = (todoID) =>{
+    // delete todo server side
+    fetch(`${link}/${todoID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(todoID)
+    })
+    // delete todo client side
+    setData((prevState)=> prevState.filter((todo)=> todo.id !== todoID))
+  }
+
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -32,7 +47,7 @@ function App() {
         {/* To do form here  */}
         <TodoForm  addTodo={AddTodo} />
         {/* To do list here */}
-        <TodoList data={data} isPending={isPending}/>
+        <TodoList data={data} isPending={isPending} deleteTodo={deleteTodo}/>
         {/* Check all and remaining  */}
         <CheckAllAndRemaining />
 

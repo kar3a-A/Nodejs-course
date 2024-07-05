@@ -16,11 +16,6 @@
       "completed": false
     },
     {
-      "id": "4",
-      "title": "Learn GraphQL",
-      "completed": false
-    },
-    {
       "id": "5",
       "title": "Learn MongoDB",
       "completed": true
@@ -28,6 +23,11 @@
     {
       "id": "6638",
       "title": "Learn Js",
+      "completed": false
+    },
+    {
+      "id": 2424,
+      "title": "Learn SQL",
       "completed": false
     }
   ]
