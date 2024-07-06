@@ -71,6 +71,31 @@ function App() {
       )
     })
   }
+
+  let ClearComplete = () =>{
+    // update todo server side
+    data.forEach((todoEach)=>{
+      if(todoEach.completed){
+        DeleteTodo(todoEach.id)
+      }
+    })
+    // delete todo client side
+    setData((prevState)=> prevState.filter(((todo)=> !todo.completed)))
+  }
+
+  let FilterAll = () =>{
+    // filter at client side
+  }
+
+  let FilterActive = () =>{
+    // filter at client side
+
+  }
+
+  let FilterCompleted = () =>{
+  // filter at client side
+
+  }
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -91,10 +116,13 @@ function App() {
 
         <div className="other-buttons-container">
           {/* To do filter  */}
-          <TodoFilter  />
+          <TodoFilter  
+            filterAll={FilterAll} 
+            filterActive={FilterActive}
+            filterCompleted={FilterCompleted}/>
 
           {/* Clear completed Button  */}
-          <ClearAndComplete />
+          <ClearAndComplete clearComplete={ClearComplete}/>
         </div>
       </div>
     </div>

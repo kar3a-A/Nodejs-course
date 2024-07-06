@@ -1,14 +1,24 @@
 import React from 'react'
 
-const TodoFilter = () => {
+const TodoFilter = ({filterAll, filterActive, filterCompleted}) => {
   return (
     <>
         <div>
-            <button className="button filter-button filter-button-active">
+            <button 
+              onClick={filterAll}
+              className="button filter-button filter-button-active">
                 All
             </button>
-            <button className="button filter-button">Active</button>
-            <button className="button filter-button">Completed</button>
+            <button 
+              onClick={filterActive}
+              className="button filter-button">
+              Active
+            </button>
+            <button 
+              onClick={filterCompleted}
+              className="button filter-button">
+              Completed
+            </button>
         </div>
     </>
   )

@@ -1,12 +1,14 @@
 
 
 
-const ClearAndComplete = () => {
+const ClearAndComplete = ({clearComplete}) => {
 
   return (
     <>
         <div>
-            <button className="button"
+            <button 
+              className="button"
+              onClick={clearComplete}
             >Clear completed
             </button>
         </div>
