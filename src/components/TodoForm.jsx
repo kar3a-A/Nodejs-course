@@ -7,7 +7,7 @@ const TodoForm = ({addTodo}) => {
     e.preventDefault()
     // todo oject
     const todo = {
-      id: Math.floor(Math.random() * 10000),
+      id: Math.floor(Math.random() * 100000).toString(),
       title: input,
       completed: false
     }
@@ -18,7 +18,7 @@ const TodoForm = ({addTodo}) => {
   }
   return (
     <>
-        <form action="#" onSubmit={handleSubmit}>
+        <form action="#" onSubmit={input===""? null : handleSubmit}>
           <input
             type="text"
             className="todo-input"

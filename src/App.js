@@ -11,13 +11,13 @@ import usePost from './hooks/usePost';
 import useDelete from './hooks/useDelete';
 import useUpdate from './hooks/useUpdate';
 
+
 function App() {
   const link= ('http://localhost:3001/todo')
   const [url, setUrl] = useState(link)
-
   const {data,setData, isPending} = useFetch(url)
-
-
+  const [tick, setTick] = useState({})
+  console.log(tick)
   let AddTodo = (todo) =>{
     // Both server and client side should update
     // update at server side
@@ -51,7 +51,26 @@ function App() {
     })
   }
 
+  const remainingCount = data && data.filter((todo)=> !todo.completed).length
+  let CheckAll = () =>{
+    // update todo server side
+    data.forEach((todoEach)=>{
+      todoEach.completed = true
+      UpdateTodo(todoEach)
+    })
 
+    // update todo client side
+    setData((prevState)=> {
+      return (
+      prevState.map((prevTodo)=>{
+        return {
+          ...prevTodo,
+          completed: true
+        }
+      })
+      )
+    })
+  }
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -64,13 +83,15 @@ function App() {
           data={data} 
           isPending={isPending} 
           deleteTodo={DeleteTodo}
-          updateTodo={UpdateTodo}/>
+          updateTodo={UpdateTodo} />
         {/* Check all and remaining  */}
-        <CheckAllAndRemaining />
+        <CheckAllAndRemaining 
+          checkAll={CheckAll}
+          remainingCount={remainingCount}/>
 
         <div className="other-buttons-container">
           {/* To do filter  */}
-          <TodoFilter />
+          <TodoFilter  />
 
           {/* Clear completed Button  */}
           <ClearAndComplete />
