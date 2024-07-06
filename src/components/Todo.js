@@ -20,7 +20,8 @@ export default function Todo({todo,updateTodo, isPending, deleteTodo}) {
         
     <li className={`${isPending ? 'todo-item-container-pending' : 'todo-item-container'}`} >
         <div className="todo-item">
-        <input type="checkbox" 
+        <input type="checkbox"
+        onChange={(e)=> updateTodo({...todo, completed: e.target.checked})}
         onClick={()=> updateTodo({...todo, completed: !todo.completed})}
         checked={todo.completed}
         />

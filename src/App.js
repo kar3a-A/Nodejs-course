@@ -16,8 +16,6 @@ function App() {
   const link= ('http://localhost:3001/todo')
   const [url, setUrl] = useState(link)
   const {data,setData, isPending} = useFetch(url)
-  const [tick, setTick] = useState({})
-  console.log(tick)
   let AddTodo = (todo) =>{
     // Both server and client side should update
     // update at server side
