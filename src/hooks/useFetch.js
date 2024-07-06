@@ -26,5 +26,6 @@ function useFetch(url) {
     return {data,setData, isPending}
 }
 
+
 export default useFetch
     

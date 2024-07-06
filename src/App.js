@@ -8,6 +8,8 @@ import ClearAndComplete from './components/ClearAndComplete';
 import { useState } from 'react';
 import useFetch from './hooks/useFetch';
 import usePost from './hooks/usePost';
+import useDelete from './hooks/useDelete';
+import useUpdate from './hooks/useUpdate';
 
 function App() {
   const link= ('http://localhost:3001/todo')
@@ -25,36 +27,27 @@ function App() {
 
   }
 
-  let deleteTodo = (todoID) =>{
+  let DeleteTodo = (todoID) =>{
     // delete todo server side
-    fetch(`${link}/${todoID}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(todoID)
-    })
+    useDelete(link, todoID);
     // delete todo client side
     setData((prevState)=> prevState.filter((todo)=> todo.id !== todoID))
   }
 
-  let updateTodo = (todo) =>{
+  let UpdateTodo = (todo) =>{
     // update todo server side
-    fetch(`${link}/${todo.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(todo)
-    })
+    useUpdate(link, todo);
     // update todo client side
     setData((prevState)=> {
+      // return need ***
+      return (
       prevState.map((prevTodo)=>{
         if(prevTodo.id === todo.id){
           return todo
         }
         return prevTodo
       })
+      )
     })
   }
 
@@ -70,8 +63,8 @@ function App() {
         <TodoList 
           data={data} 
           isPending={isPending} 
-          deleteTodo={deleteTodo}
-          updateTodo={updateTodo}/>
+          deleteTodo={DeleteTodo}
+          updateTodo={UpdateTodo}/>
         {/* Check all and remaining  */}
         <CheckAllAndRemaining />
 
