@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 function useFetch(url) {
     const [data, setData] = useState(null);
     const [isPending, setIsPending] = useState(false);
+    const [filtered, setFiltered] = useState(data)
 
     useEffect(() => {
         setIsPending(true)
@@ -14,7 +15,8 @@ function useFetch(url) {
         })
         .then(data => {
           setData(data)
-        //   console.log(data)
+          setFiltered(data)
+          console.log(filtered)
           setIsPending(false)
         })
         .catch(err => {
@@ -23,7 +25,7 @@ function useFetch(url) {
       
       }, [url])
 
-    return {data,setData, isPending}
+    return {data,setData,filtered,setFiltered, isPending}
 }
 
 

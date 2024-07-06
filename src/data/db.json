@@ -8,11 +8,16 @@
     {
       "id": "34793",
       "title": "Learn Github",
-      "completed": false
+      "completed": true
     },
     {
       "id": "84877",
       "title": "Learn Node.js",
+      "completed": true
+    },
+    {
+      "id": "59741",
+      "title": "Learn Java",
       "completed": false
     }
   ]

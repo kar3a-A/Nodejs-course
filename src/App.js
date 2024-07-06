@@ -5,7 +5,7 @@ import TodoList from './components/TodoList';
 import CheckAllAndRemaining from './components/CheckAllAndRemaining';
 import TodoFilter from './components/TodoFilter';
 import ClearAndComplete from './components/ClearAndComplete';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import useFetch from './hooks/useFetch';
 import usePost from './hooks/usePost';
 import useDelete from './hooks/useDelete';
@@ -15,7 +15,10 @@ import useUpdate from './hooks/useUpdate';
 function App() {
   const link= ('http://localhost:3001/todo')
   const [url, setUrl] = useState(link)
-  const {data,setData, isPending} = useFetch(url)
+  const {data,setData,filtered,setFiltered, isPending} = useFetch(url)
+
+
+
   let AddTodo = (todo) =>{
     // Both server and client side should update
     // update at server side
@@ -81,19 +84,17 @@ function App() {
     setData((prevState)=> prevState.filter(((todo)=> !todo.completed)))
   }
 
-  let FilterAll = () =>{
-    // filter at client side
-  }
-
-  let FilterActive = () =>{
-    // filter at client side
-
-  }
-
-  let FilterCompleted = () =>{
-  // filter at client side
-
-  }
+  let filterBy = useCallback((filter)=>{
+    if(filter === 'all'){
+      setFiltered(filtered&& data)
+    }
+    else if(filter === 'active'){
+      setFiltered(filtered && data.filter((todo)=> !todo.completed))
+    }
+    else if(filter === 'completed'){
+      setFiltered(filtered &&data.filter((todo)=> todo.completed))
+    }
+  },[data, setFiltered, filtered])
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -114,10 +115,7 @@ function App() {
 
         <div className="other-buttons-container">
           {/* To do filter  */}
-          <TodoFilter  
-            filterAll={FilterAll} 
-            filterActive={FilterActive}
-            filterCompleted={FilterCompleted}/>
+          <TodoFilter  filterBy={filterBy}/>
 
           {/* Clear completed Button  */}
           <ClearAndComplete clearComplete={ClearComplete}/>

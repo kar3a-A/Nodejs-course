@@ -1,22 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-const TodoFilter = ({filterAll, filterActive, filterCompleted}) => {
+const TodoFilter = ({filterBy}) => {
+  const [filter, setFilter] = useState('all')
+  useEffect(() => {
+    filterBy(filter)
+  
+  }, [filter, filterBy])
+
+  const handleFilterChange = (filter) =>{
+    setFilter(filter)
+  }
+  
   return (
     <>
         <div>
             <button 
-              onClick={filterAll}
-              className="button filter-button filter-button-active">
+              onClick={()=>handleFilterChange('all')}
+              className={`button filter-button ${filter ==='all' ?`filter-button-active`: ''}`}>
                 All
             </button>
             <button 
-              onClick={filterActive}
-              className="button filter-button">
+              onClick={()=>handleFilterChange('active')}
+              className={`button filter-button ${filter ==='active' ?`filter-button-active`: ''}`}>
               Active
             </button>
             <button 
-              onClick={filterCompleted}
-              className="button filter-button">
+              onClick={()=>handleFilterChange('completed')}
+              className={`button filter-button ${filter ==='completed' ?`filter-button-active`: ''}`}>
               Completed
             </button>
         </div>
