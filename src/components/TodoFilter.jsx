@@ -5,7 +5,7 @@ const TodoFilter = ({filterBy}) => {
   useEffect(() => {
     filterBy(filter)
   
-  }, [filter, filterBy])
+  }, [filter])
 
   const handleFilterChange = (filter) =>{
     setFilter(filter)

@@ -9,7 +9,7 @@ const TodoList = ({data,updateTodo, isPending, deleteTodo}) => {
             isPending && <li>Loading...</li>
           }
           { 
-            data && data.map((todo)=>{
+            data.map((todo)=>{
                 return (
                 <Todo todo={todo} 
                 deleteTodo={deleteTodo} 

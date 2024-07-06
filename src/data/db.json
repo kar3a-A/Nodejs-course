@@ -2,23 +2,13 @@
   "todo": [
     {
       "id": "2",
-      "title": "Learn Redux",
+      "title": "Learn Redux Lesson",
       "completed": false
     },
     {
-      "id": "34793",
-      "title": "Learn Github",
+      "id": "73268",
+      "title": "Learn",
       "completed": true
-    },
-    {
-      "id": "84877",
-      "title": "Learn Node.js",
-      "completed": true
-    },
-    {
-      "id": "59741",
-      "title": "Learn Java",
-      "completed": false
     }
   ]
 }

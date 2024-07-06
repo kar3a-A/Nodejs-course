@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 
 function useFetch(url) {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [isPending, setIsPending] = useState(false);
     const [filtered, setFiltered] = useState(data)
 

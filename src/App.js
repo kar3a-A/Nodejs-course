@@ -5,7 +5,7 @@ import TodoList from './components/TodoList';
 import CheckAllAndRemaining from './components/CheckAllAndRemaining';
 import TodoFilter from './components/TodoFilter';
 import ClearAndComplete from './components/ClearAndComplete';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useFetch from './hooks/useFetch';
 import usePost from './hooks/usePost';
 import useDelete from './hooks/useDelete';
@@ -17,7 +17,9 @@ function App() {
   const [url, setUrl] = useState(link)
   const {data,setData,filtered,setFiltered, isPending} = useFetch(url)
 
-
+  useEffect(()=>{
+    setFiltered(data)
+  },[data])
 
   let AddTodo = (todo) =>{
     // Both server and client side should update
@@ -72,6 +74,7 @@ function App() {
       )
     })
   }
+  console.log(data)
 
   let ClearComplete = () =>{
     // update todo server side
@@ -85,16 +88,16 @@ function App() {
   }
 
   let filterBy = useCallback((filter)=>{
-    if(filter === 'all'){
-      setFiltered(filtered&& data)
+    if(filter === 'all' && filtered){
+      setFiltered( data)
     }
-    else if(filter === 'active'){
-      setFiltered(filtered && data.filter((todo)=> !todo.completed))
+    else if(filter === 'active' && filtered){
+      setFiltered( data.filter((todo)=> !todo.completed))
     }
-    else if(filter === 'completed'){
-      setFiltered(filtered &&data.filter((todo)=> todo.completed))
+    else if(filter === 'completed' && filtered){
+      setFiltered(data.filter((todo)=> todo.completed))
     }
-  },[data, setFiltered, filtered])
+  },[data,filtered])
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -104,7 +107,7 @@ function App() {
         <TodoForm  addTodo={AddTodo} />
         {/* To do list here */}
         <TodoList 
-          data={data} 
+          data={filtered} 
           isPending={isPending} 
           deleteTodo={DeleteTodo}
           updateTodo={UpdateTodo} />
