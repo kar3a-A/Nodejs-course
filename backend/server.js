@@ -1,13 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
+const { route } = require("./routes/receipes");
+const receipeRoutes = require("./routes/receipes");
 
 const app = express();
 app.use(morgan("dev"));
 
-app.get('/', (req, res)=>{
-    res.send("Hello World!");
-})
+app.use('/api/receipes',receipeRoutes);
 
 // app.listen(4000);
 app.listen(process.env.PORT, ()=>{
