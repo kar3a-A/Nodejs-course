@@ -15,7 +15,7 @@ function useFetch(url) {
             })
             .then(res => {
             if(!res.ok) {
-                throw Error('something went wrong');
+                throw Error('Something went wrong');
             }
             return res.json();
             })

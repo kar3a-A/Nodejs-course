@@ -6,6 +6,7 @@ import Home from "../pages/Home.jsx";
 import About from "../pages/About.jsx";
 import Contact from "../pages/Contact.jsx";
 import Detail from "../pages/Detail.jsx";
+import NotFound from "../pages/NotFound.jsx";
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "/blogs/:id",
                 element: <Detail />
+            },
+            {
+                path: "*",
+                element: <NotFound />
             }
         ]
         },
