@@ -1,3 +1,5 @@
+const Receipe = require("../models/Receipe");
+
 const ReceipeController = {
 
     index: (req, res) => {
@@ -5,10 +7,20 @@ const ReceipeController = {
             message: "Get receipe"
         });
     },
-    store: (req, res) => {
-        return res.json({
-            message: "store receipe"
-        });
+    store: async(req, res) => {
+        try{
+            const {title,description,ingredients}=req.body
+            const newReceipe = await Receipe.create({
+                title,
+                description,
+                ingredients
+            })
+            return res.json(newReceipe);
+        }catch(err){
+            return res.status(400).json({
+                message: "Invalid fields"
+            })
+        }
     },
     show: (req, res) => {
         return res.json({
