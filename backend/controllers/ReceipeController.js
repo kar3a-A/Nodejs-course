@@ -2,9 +2,11 @@ const Receipe = require("../models/Receipe");
 
 const ReceipeController = {
 
-    index: (req, res) => {
+    index: async(req, res) => {
+        let receipes = await Receipe.find().sort({createdAt: -1})
         return res.json({
-            message: "Get receipe"
+
+            message: res.json(receipes)
         });
     },
     store: async(req, res) => {
@@ -22,15 +24,31 @@ const ReceipeController = {
             })
         }
     },
-    show: (req, res) => {
-        return res.json({
-            message: "get single receipe"
-        });
+    show: async(req, res) => {
+        try {
+            let singleReceipe = await Receipe.findById(req.params.id)
+            return res.json({
+                message: res.json(singleReceipe)
+            });
+        }catch {
+            return res.status(404).json({
+                message: "Receipe not found"
+            })
+        }
+
     },
-    destroy: (req, res) => {
-        return res.json({
-            message: "delete single receipe"
-        });
+    destroy: async(req, res) => {
+        try{
+            let destroyReceipe = await Receipe.findByIdAndDelete(req.params.id)
+            return res.json({
+                message: res.json(destroyReceipe)
+            });
+        }catch{
+            return res.status(404).json({
+                message: "Receipe not found & deleting process fail"
+            })
+        }
+
     },
     update: (req, res) => {
         return res.json({
