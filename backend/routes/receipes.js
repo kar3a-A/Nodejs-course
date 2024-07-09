@@ -1,13 +1,18 @@
 const express = require("express");
 const ReceipeController = require("../controllers/ReceipeController");
-
+const {body} = require("express-validator");
+const  handleErrorMessage  = require("../middlewares/handleErrorMessage");
 
 const router = express.Router();
 
 // GET RECIPES
 router.get("", ReceipeController.index);
 // POST RECIPE
-router.post("", ReceipeController.store);
+router.post("", [
+    body('title').notEmpty(),
+    body('description').notEmpty(),
+    body('ingredients').notEmpty().isArray({min:2})
+    ],handleErrorMessage, ReceipeController.store);
 // GET SINGLE RECIPE
 router.get("/:id", ReceipeController.show);
 // DELETE RECIPE
