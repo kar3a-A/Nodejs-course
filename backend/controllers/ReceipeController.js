@@ -1,4 +1,5 @@
 const Receipe = require("../models/Receipe");
+const mongoose = require("mongoose");
 
 const ReceipeController = {
 
@@ -26,13 +27,24 @@ const ReceipeController = {
     },
     show: async(req, res) => {
         try {
-            let singleReceipe = await Receipe.findById(req.params.id)
+            let id = req.params.id
+            if(!mongoose.Types.ObjectId.isValid(id)){
+                return res.status(400).json({
+                    message: "Not a valid ID"
+                })
+            }
+            let singleReceipe = await Receipe.findById(id)
+            if(!singleReceipe) {
+                return res.status(404).json({
+                    message: "Receipe not found"
+                })
+            }
             return res.json({
-                message: res.json(singleReceipe)
+                singleReceipe
             });
         }catch {
-            return res.status(404).json({
-                message: "Receipe not found"
+            return res.status(500).json({
+                message: "Internet Server Error"
             })
         }
 
