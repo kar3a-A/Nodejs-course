@@ -50,22 +50,56 @@ const ReceipeController = {
 
     },
     destroy: async(req, res) => {
-        try{
-            let destroyReceipe = await Receipe.findByIdAndDelete(req.params.id)
+        try {
+            let id = req.params.id
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).json({
+                    message: "Not a valid ID"
+                })
+            }
+            let singleReceipe = await Receipe.findByIdAndDelete(id)
+            if (!singleReceipe) {
+                return res.status(404).json({
+                    message: "Receipe not found"
+                })
+            }
             return res.json({
-                message: res.json(destroyReceipe)
+                singleReceipe
             });
-        }catch{
-            return res.status(404).json({
-                message: "Receipe not found & deleting process fail"
+        } catch {
+            return res.status(500).json({
+                message: "Internet Server Error"
             })
         }
 
+
     },
-    update: (req, res) => {
-        return res.json({
-            message: "update single receipe"
-        });
+    update: async(req, res) => {
+        try {
+            let id = req.params.id
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).json({
+                    message: "Not a valid ID"
+                })
+            }
+            let singleReceipe = await Receipe.findByIdAndUpdate(id,{
+                ...req.body
+            })
+
+            if (!singleReceipe) {
+                return res.status(404).json({
+                    message: "Receipe not found"
+                })
+            }
+            return res.json({
+                singleReceipe
+            });
+        } catch {
+            return res.status(500).json({
+                message: "Internet Server Error"
+            })
+        }
+
     }
 }
 
