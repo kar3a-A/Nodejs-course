@@ -1,4 +1,5 @@
 
+import { NavLink, Outlet } from 'react-router-dom'
 import './App.css'
 
 function App() {
@@ -6,7 +7,14 @@ function App() {
 
   return (
     <>
-      <h1 className='text-red-600 font-bold'>Welcome</h1>
+    <nav>
+      <li ><NavLink to="/">Home</NavLink></li>
+      <li><NavLink to="/about">About</NavLink></li>
+      <li><NavLink to="/receipes">Receipes</NavLink></li>
+    </nav>
+    <div>
+      <Outlet />
+    </div>
     </>
   )
 }
