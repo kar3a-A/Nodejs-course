@@ -7,7 +7,7 @@ const ReceipeController = {
         let receipes = await Receipe.find().sort({createdAt: -1})
         return res.json({
 
-            message: res.json(receipes)
+            receipes
         });
     },
     store: async(req, res) => {
