@@ -1,30 +1,33 @@
+import { useEffect, useState } from "react"
+import ReceipeCard from "../components/ReceipeCard";
 
 
 const Home = () => {
+    const [data, setdata] = useState([]);
+
+    useEffect(()=>{
+        let fetchReceipes = async() =>{
+                let response = await fetch('http://localhost:4000/api/receipes')
+                if(response.ok){
+                    let data = await response.json()
+                    setdata(data.receipes)
+                }
+
+
+        }
+        fetchReceipes()
+    },[])
   return (
     <div className="space-y-3">
-        <div className="bg-white p-5 rounded-2xl space-y-3">
-            <h3 className="text-xl font-bold text-lime-600">How to make a cake ?</h3>
-            <p>Description</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, ducimus reiciendis harum ipsum quis nesciunt, aut nemo sit cumque veritatis quaerat repellendus praesentium aliquid saepe mollitia animi. Cum, modi placeat.</p>
-            <div className="space-x-2">
-                <span>Ingredients -</span>
-                <span className="bg-lime-600 text-white px-2 py-1 text-sm rounded-full">3 eggs</span>
-                <span className="bg-lime-600 text-white px-2 py-1 text-sm rounded-full" >Baking soda</span>
-            </div>
-            <p className="text-gray-500">Published at - 5mins ago</p>
-        </div>
-        <div className="bg-white p-5 rounded-2xl space-y-3">
-            <h3 className="text-xl font-bold text-lime-600">How to make a cake ?</h3>
-            <p>Description</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, ducimus reiciendis harum ipsum quis nesciunt, aut nemo sit cumque veritatis quaerat repellendus praesentium aliquid saepe mollitia animi. Cum, modi placeat.</p>
-            <div className="space-x-2">
-                <span>Ingredients -</span>
-                <span className="bg-lime-600 text-white px-2 py-1 text-sm rounded-full">3 eggs</span>
-                <span className="bg-lime-600 text-white px-2 py-1 text-sm rounded-full" >Baking soda</span>
-            </div>
-            <p className="text-gray-500">Published at - 5mins ago</p>
-        </div>
+        {
+            data && data.map((receipe)=>{
+                return (
+                    <ReceipeCard key={receipe._id} receipe={receipe}/>
+                )
+            })
+        }
+
+
     </div>
   )
 }
