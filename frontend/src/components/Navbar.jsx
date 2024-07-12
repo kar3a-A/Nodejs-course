@@ -11,7 +11,7 @@ const Navbar = () => {
         <ul className='flex space-x-3 font-bold'>
             <li ><NavLink to="/" className='hover:text-lime-500'>Home</NavLink></li>
             <li><NavLink to="/about" className='hover:text-lime-500'>About</NavLink></li>
-            <li><NavLink to="/receipes" className='hover:text-lime-500'>Receipes</NavLink></li>
+            <li><NavLink to="/receipes/create" className='hover:text-lime-500'>Create</NavLink></li>
         </ul>
         </nav>
     </>

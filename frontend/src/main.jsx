@@ -9,6 +9,8 @@ import {
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Recepies from './pages/Recepies.jsx';
+import ReceipeCreate from './pages/ReceipeCreate.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,9 @@ const router = createBrowserRouter([
       },{
         path: "/receipes",
         element: <Recepies />
+      },{
+        path: "/receipes/create",
+        element: <ReceipeCreate />
       }
     ]
   },
