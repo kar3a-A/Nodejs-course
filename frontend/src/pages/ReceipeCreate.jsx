@@ -70,6 +70,7 @@ const ReceipeCreate = () => {
               <img src={plus} 
                 title="Add Ingredient"
                 width="40" 
+                type="button"
                 alt="" 
                 onClick={newIngredient.length >=3 ? addIngredient : null}
                 className='cursor-pointer rounded-md hover:bg-green-200'/>
@@ -78,7 +79,7 @@ const ReceipeCreate = () => {
 
               <Ingredient ingredients={ingredients}/>
           </div>
-          <button onClick={clear} className='w-full px-3 py-1 rounded-full bg-red-400 text-white hover:bg-red-300'>
+          <button type='button' onClick={clear} className='w-full px-3 py-1 rounded-full bg-red-400 text-white hover:bg-red-300'>
             Clear
           </button>
           <button type='submit' className='w-full px-3 py-1 rounded-full bg-green-300 text-white hover:bg-lime-300'>
