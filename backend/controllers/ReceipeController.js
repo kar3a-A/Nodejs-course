@@ -4,7 +4,14 @@ const mongoose = require("mongoose");
 const ReceipeController = {
 
     index: async(req, res) => {
-        let receipes = await Receipe.find().sort({createdAt: -1})
+        let limit = 6;
+        let page = req.query.page || 1;
+        let receipes = await Receipe
+            .find()
+            .skip((page-1)*limit)
+            .sort({createdAt: -1})
+            .limit(limit)
+
         return res.json({
 
             receipes
