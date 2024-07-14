@@ -24,7 +24,7 @@ const Home = () => {
                     let data = await response.json()
                     setdata(data.response.data)
                     setlinks(data.response.links)
-                    console.log(data.response.links)
+                    // console.log(data.response.links)
                 }
 
         window.scrollTo({

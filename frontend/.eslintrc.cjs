@@ -18,5 +18,5 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-  // 'react/props-deep': 'off',
+  'react/props-deep': 'off',
 }

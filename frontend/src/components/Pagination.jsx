@@ -18,7 +18,7 @@ const Pagination = ({links, page}) => {
                         {links.loopableLinks  &&links.loopableLinks.map((link) => {
                             if (link.number == page) {
                                 return (
-                                    console.log(link.number),
+                                    // console.log(link.number),
                                     <Link key={link.number} to={`/?page=${link.number}`} aria-current="page" className="relative z-10 inline-flex items-center bg-green-400 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-400">{link.number}</Link>
                                 )
                             } else {

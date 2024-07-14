@@ -29,6 +29,9 @@ const router = createBrowserRouter([
       },{
         path: "/receipes/create",
         element: <ReceipeCreate />
+      },{
+        path: "/receipes/edit/:id",
+        element: <ReceipeCreate />
       }
     ]
   },

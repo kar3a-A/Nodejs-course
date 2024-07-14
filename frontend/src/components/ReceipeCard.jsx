@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Ingredient from "./Ingredient"
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 const ReceipeCard = ({receipe}) => {
@@ -32,11 +33,18 @@ const ReceipeCard = ({receipe}) => {
         <p>{receipe.description}</p>
         <Ingredient  ingredients={receipe.ingredients} />
         <p className="text-gray-500">Published at - {receipe.createdAt}</p>
-        <button 
-          onClick={() =>{ handleDelete(receipe._id)  }}
-          className="text-white bg-red-500 px-3 py-1 rounded hover:bg-red-400">
-          Delete
-        </button>
+        <div className="flex space-x-3">
+          <Link 
+            to={`/receipes/edit/${receipe._id}`}
+            className="text-white bg-orange-500 px-3 py-1 rounded hover:bg-orange-400">
+            Edit
+          </Link>
+          <button 
+            onClick={() =>{ handleDelete(receipe._id)  }}
+            className="text-white bg-red-500 px-3 py-1 rounded hover:bg-red-400">
+            Delete
+          </button>
+        </div>
     </div>
   )
 }
