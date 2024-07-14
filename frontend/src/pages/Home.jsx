@@ -9,12 +9,13 @@ const Home = () => {
     const [data, setdata] = useState([]);
     const [links, setlinks] = useState(null);
 
+
+
     let location = useLocation();
     let searchQuery = new URLSearchParams(location.search)
     let page = searchQuery.get('page') || 1
-    
-    // backend code here
 
+    // backend code here
 
     useEffect(()=>{
         let fetchReceipes = async() =>{
@@ -35,12 +36,13 @@ const Home = () => {
         }
         fetchReceipes()
     },[page])
+
   return (
     <div className="space-y-3">
         {
             data && data.map((receipe)=>{
                 return (
-                    <ReceipeCard key={receipe._id} receipe={receipe}/>
+                    <ReceipeCard key={receipe._id} receipe={receipe} />
                 )
             })
         }
