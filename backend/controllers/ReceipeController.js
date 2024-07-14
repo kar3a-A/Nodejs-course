@@ -11,10 +11,27 @@ const ReceipeController = {
             .skip((page-1)*limit)
             .sort({createdAt: -1})
             .limit(limit)
+        let totalReceipeCount = await Receipe.countDocuments()
+        let toatlPageCount = Math.ceil(totalReceipeCount/limit)
+        let links = {
+            nextPage: toatlPageCount == page? false: true,
+            prevPage: page ==1 ? false: true,
+            currentPage: page,
+            loopableLinks: []
+        }
+
+        // generate loopable links array
+        for ( let index=0; index <toatlPageCount; index++){
+            let number = index+1
+            links.loopableLinks.push({number})
+        }
+        let response = {
+           data: receipes,
+            links
+        }
 
         return res.json({
-
-            receipes
+            response
         });
     },
     store: async(req, res) => {

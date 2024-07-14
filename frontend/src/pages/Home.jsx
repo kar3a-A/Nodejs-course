@@ -7,28 +7,23 @@ import ScrollTopDown from "../components/ScrollTopDown";
 
 const Home = () => {
     const [data, setdata] = useState([]);
+    const [links, setlinks] = useState(null);
 
     let location = useLocation();
     let searchQuery = new URLSearchParams(location.search)
     let page = searchQuery.get('page') || 1
     
-    let links = {
-            nextPage: true,
-            prevPage: false,
-            currentPage: 1,
-            loopableLinks: [
-                {number :1},
-                {number :2},
-                {number :3},
-            ]
-        }
+    // backend code here
+
 
     useEffect(()=>{
         let fetchReceipes = async() =>{
                 let response = await fetch(`http://localhost:4000/api/receipes?page=${page}`)
                 if(response.ok){
                     let data = await response.json()
-                    setdata(data.receipes)
+                    setdata(data.response.data)
+                    setlinks(data.response.links)
+                    console.log(data.response.links)
                 }
 
         window.scrollTo({
@@ -49,7 +44,7 @@ const Home = () => {
                 )
             })
         }
-    <Pagination links={links} page={page} />
+    {links && <Pagination links={ links} page={page} />}
     <ScrollTopDown />
 
     </div>
