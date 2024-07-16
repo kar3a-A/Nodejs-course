@@ -5,6 +5,7 @@ const { route } = require("./routes/receipes");
 const receipeRoutes = require("./routes/receipes");
 const mongoose = require("mongoose");
 const cors = require("cors")
+const userRoutes = require("./routes/users");
 
 const app = express();
 const mongoURL = "mongodb+srv://kkh2003csw:test1234@mern-cluster.ssr4k0f.mongodb.net/?retryWrites=true&w=majority&appName=MERN-Cluster"
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use('/api/receipes',receipeRoutes);
+app.use('/api/users',userRoutes);
 
 
 
