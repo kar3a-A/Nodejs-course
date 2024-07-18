@@ -1,5 +1,5 @@
 const User =  require("../models/User");
-const bcrypt = require("bcryptjs");
+
 
 const UserController = {
     login: (req, res)=>{
@@ -9,19 +9,10 @@ const UserController = {
     register: async(req, res)=>{
         try{
             let { name, email, password } = req.body
-            let userExists = await User.findOne({ email });
-            if (userExists) {
-                throw "User already exists"
-            }
-            salt = await bcrypt.genSalt()
-            hashPw = await bcrypt.hash(password, salt)
-            let newUser = await User.create({
-                name,
-                email,
-                password: hashPw
-            })
+            let user = await User.register(name,email,password)
 
-            return res.json(newUser)
+
+            return res.json(user)
         } catch(err) {
             return res.status(400).json({
                 error: err
